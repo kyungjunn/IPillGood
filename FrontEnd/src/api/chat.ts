@@ -1,22 +1,12 @@
-export interface SourceItem {
-  product_name: string;
-  representative_ingredient: string;
-  manufacturer: string;
-  serving_size: string;
-  origin_country: string;
-  source_name: string;
-}
-
 export interface ChatResponse {
   answer: string;
-  sources: SourceItem[];
 }
 
 export async function sendMessage(message: string): Promise<ChatResponse> {
-  const response = await fetch('/api/chat', {
+  const response = await fetch('/api/recommend', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ message }),
+    body: JSON.stringify({ query: message }),
   });
 
   if (!response.ok) {
