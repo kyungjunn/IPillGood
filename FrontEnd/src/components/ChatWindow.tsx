@@ -49,7 +49,6 @@ export default function ChatWindow() {
           id: genId(),
           role: 'assistant',
           content: data.answer,
-          sources: data.sources,
         },
       ]);
     } catch (err: unknown) {

@@ -1,12 +1,7 @@
-import { useState } from 'react';
-import type { SourceItem } from '../api/chat';
-import SourceCard from './SourceCard';
-
 export interface Message {
   id: string;
   role: 'user' | 'assistant';
   content: string;
-  sources?: SourceItem[];
   isError?: boolean;
 }
 
@@ -15,7 +10,6 @@ interface Props {
 }
 
 export default function ChatMessage({ message }: Props) {
-  const [showSources, setShowSources] = useState(false);
   const isUser = message.role === 'user';
 
   return (
@@ -38,26 +32,7 @@ export default function ChatMessage({ message }: Props) {
           ))}
         </div>
 
-        {/* 출처 토글 */}
-        {!isUser && message.sources && message.sources.length > 0 && (
-          <div className="chat-message__sources">
-            <button
-              className="sources-toggle"
-              onClick={() => setShowSources((v) => !v)}
-            >
-              <span className="sources-toggle__icon">{showSources ? '▲' : '▼'}</span>
-              참고 영양제 {message.sources.length}개
-            </button>
 
-            {showSources && (
-              <div className="sources-list">
-                {message.sources.map((src, i) => (
-                  <SourceCard key={i} source={src} index={i} />
-                ))}
-              </div>
-            )}
-          </div>
-        )}
       </div>
 
       {isUser && (
